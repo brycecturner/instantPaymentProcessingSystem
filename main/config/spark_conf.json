@@ -1,0 +1,9 @@
+{ 
+    "main" : {
+        "mainpath":"/home/bcturner/instantPaymentProcessingSystem/main",
+        "classpath":"classpath"
+    },
+    "spark" : {
+
+    }
+}
