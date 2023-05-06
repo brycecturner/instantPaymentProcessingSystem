@@ -2,3 +2,6 @@
 main/data/*
 main/classpath/*
 *__pycache__*
+*metastore_db*
+*spark-warehouse*
+*derby.log*

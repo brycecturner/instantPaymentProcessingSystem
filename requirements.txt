@@ -1,3 +1,7 @@
 pyspark
 tk==0.1.0
 datetime
+delta-spark
+delta
+json
+pandas

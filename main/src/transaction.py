@@ -34,5 +34,5 @@ class transaction:
         
     def send_kafka_message(self) -> str:
         "generates current timestamp in utc and will push to kafka broker"
-        final_message = str(datetime.datetime.utcnow().timestamp()) + ", " + self.generate_kafka_message()
+        final_message = str(datetime.datetime.utcnow().timestamp()) + "," + self.generate_kafka_message()
         return final_message    
