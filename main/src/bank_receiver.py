@@ -6,8 +6,8 @@ from delta import *
 
 spark = (SparkSession
          .builder
-         .appName("firstTest")
-         .config('spark.jars.packages', "io.delta:delta-core_2.12:2.3.0,io.delta:delta-storage:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.0")
+         .appName("read_from_institution_topic")
+         .config('spark.jars.packages', "io.delta:delta-core_2.12:2.3.0,io.delta:delta-storage:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0")
          .config('spark.sql.extension', 'io.delta.sql.DeltaSparkSessionExtension')
          .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
          .enableHiveSupport()
@@ -21,7 +21,7 @@ input_stream = (
     .readStream 
     .format('kafka')
     .option('kafka.bootstrap.servers', 'localhost:9092')
-    .option('subscribe', 'central_topic')
+    .option('subscribe', f'topic_{institutionId}')
     .option('earliestOffset', 'latest')
     .load()
     .selectExpr("CAST (value AS STRING)", 

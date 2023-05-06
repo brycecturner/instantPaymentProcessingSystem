@@ -5,5 +5,9 @@
     },
     "spark" : {
 
-    }
+    },
+    "kafka" : {
+        "topic_hub_name" : "central_topic",
+        "bootstrap-server" : "localhost:9092"
+    } 
 }

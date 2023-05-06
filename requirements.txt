@@ -5,3 +5,4 @@ delta-spark
 delta
 json
 pandas
+confluent-kafka
