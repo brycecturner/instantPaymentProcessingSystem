@@ -15,6 +15,7 @@ spark = (SparkSession
 
 spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
+
 input_stream = (
     spark
     .readStream 
@@ -58,5 +59,6 @@ input_stream = (
     .outputMode('append')
     .option('checkpointLocation', "/home/bcturner/instantPaymentProcessingSystem/main/data/dummy_delta_data")
     .start("/home/bcturner/instantPaymentProcessingSystem/main/data/dummy_delta_data")
+    .awaitTermination()
    
 )
