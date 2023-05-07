@@ -29,7 +29,7 @@ class transaction:
         Generates the kafka message in the proper error. 
         Conducts a check that none of the required fields are blank"""
         
-        key_values = [self.sender_user_id, self.sender_institution_id, self.recipient_user_id, self.recipient_institution_id, self.dollar_value]
+        key_values = [self.sender_institution_id, self.sender_user_id, self.recipient_institution_id, self.recipient_user_id, self.dollar_value]
         
         if any(v is None for v in key_values):
             raise Exception("Some of the critical fields are blank")
