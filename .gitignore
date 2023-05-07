@@ -5,3 +5,4 @@ main/classpath/*
 *metastore_db*
 *spark-warehouse*
 *derby.log*
+*~*

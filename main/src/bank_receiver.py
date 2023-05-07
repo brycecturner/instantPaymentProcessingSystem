@@ -15,14 +15,16 @@ spark = (SparkSession
 
 spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
+institutionId="0001"
 
 input_stream = (
     spark
     .readStream 
     .format('kafka')
     .option('kafka.bootstrap.servers', 'localhost:9092')
-    .option('subscribe', f'topic_{institutionId}')
+    .option('subscribe', f'institutionId_{institutionId}')
     .option('earliestOffset', 'latest')
+    .option('failOnDataLoss', 'false')
     .load()
     .selectExpr("CAST (value AS STRING)", 
                 "CAST (timestamp AS STRING)")
@@ -45,7 +47,7 @@ input_stream = (
                     col('sendingTimestamp')
                    ).alias('sender') 
               )
-    #Rename Rename ot make 
+    #Rename to make consistent with existing data 
          .select(
              col('receivingInstitutionId').alias('institutionId'), 
              col("receivingUserId").alias("userId"), 
@@ -53,12 +55,13 @@ input_stream = (
              col('kafkaTimestamp').cast(types.LongType()).alias('timestamp'),
              "note"
     )
-    #Append to Delta Data
+    
+    #Append to Bank-Specific Delta Data
     .writeStream
     .format('delta')
     .outputMode('append')
-    .option('checkpointLocation', "/home/bcturner/instantPaymentProcessingSystem/main/data/dummy_delta_data")
-    .start("/home/bcturner/instantPaymentProcessingSystem/main/data/dummy_delta_data")
+    .option('checkpointLocation', f"/home/bcturner/instantPaymentProcessingSystem/main/data/institutionId_{institutionId}")
+    .start(f"/home/bcturner/instantPaymentProcessingSystem/main/data/institutionId_{institutionId}")
     .awaitTermination()
    
 )
