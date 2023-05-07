@@ -23,6 +23,8 @@ class user:
                  .enableHiveSupport()
                  .getOrCreate())
 
+        self.spark.sparkContext.setLogLevel("ERROR")
+
         
     def return_balance(self):
 

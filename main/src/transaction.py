@@ -16,7 +16,7 @@ class transaction:
         self.dollar_value=None
         self.kafka_message=None
 
-    def set_recipient_details(self, user_id, institution_id):
+    def set_recipient_details(self, institution_id, user_id):
         self.recipient_user_id=user_id
         self.recipient_institution_id = institution_id
 
