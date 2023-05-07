@@ -14,6 +14,7 @@ class transaction:
         self.recipient_user_id=None
         self.recipient_institution_id=None
         self.dollar_value=None
+        self.kafka_message=None
 
     def set_recipient_details(self, user_id, institution_id):
         self.recipient_user_id=user_id
@@ -24,7 +25,10 @@ class transaction:
 
 
     def generate_kafka_message(self) -> str:
-        """ """
+        """ 
+        Generates the kafka message in the proper error. 
+        Conducts a check that none of the required fields are blank"""
+        
         key_values = [self.sender_user_id, self.sender_institution_id, self.recipient_user_id, self.recipient_institution_id, self.dollar_value]
         
         if any(v is None for v in key_values):
@@ -32,7 +36,7 @@ class transaction:
         else:
             return ",".join(str(i) for i in key_values)
         
-    def send_kafka_message(self) -> str:
-        "generates current timestamp in utc and will push to kafka broker"
-        final_message = str(datetime.datetime.utcnow().timestamp()) + "," + self.generate_kafka_message()
-        return final_message    
+    def set_kafka_message(self):
+        
+        self.kafka_message=str(datetime.datetime.utcnow().timestamp()) + "," + self.generate_kafka_message()
+    

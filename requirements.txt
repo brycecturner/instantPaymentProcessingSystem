@@ -6,3 +6,4 @@ delta
 json
 pandas
 confluent-kafka
+Fakser
