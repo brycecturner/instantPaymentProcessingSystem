@@ -28,13 +28,13 @@ input_stream = (
     .option('earliestOffset', 'latest')
     .option('failOnDataLoss', 'false')
     .load()
-    .selectExpr("CAST
- (value AS STRING)")
+    .selectExpr("CAST (value AS STRING)")
     
     #Parse Kafka Message to Find Correct Topic
     .select(
         split(col('value'), ",").getItem(3).alias("instId"),
         "value")
+    
     .withColumn("topic", 
                 concat(lit('institutionId_'),col("instId").cast(types.StringType()) )  
                )
